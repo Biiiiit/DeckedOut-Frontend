@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RegisterFormContent = ({ formData, handleChange, handleSubmit }) => {
   return (
@@ -42,6 +43,7 @@ const RegisterFormContent = ({ formData, handleChange, handleSubmit }) => {
           <option value="admin">Admin</option>
         </select>
       </div>
+      <Link to="/login">Already have an account? Login here</Link>
       <button type="submit">Register</button>
     </form>
   );

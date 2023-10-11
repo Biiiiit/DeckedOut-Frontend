@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import './RegisterForm.css';
-import LoginForm from './LoginForm';
-import { Link } from 'react-router-dom';
+import RegisterFormContent from '../components/RegisterFormContent';
+
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -53,7 +53,6 @@ const RegisterForm = () => {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <Link to="/login">Already have an account? Login here</Link>
     </div>
   );
 };
