@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom";
-import RegisterForm from "./components/RegisterForm";
+import RegisterForm from "./pages/RegisterForm";
+import LoginForm from './pages/LoginForm';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <NavLink to={link.Path} />
         <Routes>
         <Route path="/" element={<RegisterForm/>} />
+        <Route path="/login" element={<LoginForm/>}/>
         </Routes>
       </Router>
     </div>
