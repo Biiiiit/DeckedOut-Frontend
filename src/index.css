@@ -3,3 +3,11 @@
   line-height: 1.5;
   font-weight: 400;
 }
+
+body {
+  margin: 0;
+  background-image: url(assets/vapowave.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}

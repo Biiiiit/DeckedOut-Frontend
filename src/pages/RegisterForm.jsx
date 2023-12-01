@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import axios from "axios";
-import './RegisterForm.css';
+import '../pages/css/RegisterForm.css';
+import { useNavigate } from 'react-router-dom';
+import RegistrationAPI from '../apis/RegistrationAPI';
+import AuthAPI from '../apis/AuthAPI';
 import RegisterFormContent from '../components/RegisterFormContent';
 
-
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     type: 'normal',
+  });
+
+  const [message, setMessage] = useState({
+    success: null,
+    content: '',
   });
 
   const handleChange = (e) => {
@@ -29,20 +37,29 @@ const RegisterForm = () => {
       password: formData.password,
       type: formData.type.toLowerCase(),
     };
-    console.log(userData);
 
-    axios.post("http://localhost:8080/users", userData)
-      .then((response) => {
-        console.log('API Response:', response.data);
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-          type: 'normal',
+    RegistrationAPI.register(userData)
+      .then(() => AuthAPI.login(formData.username, formData.password))
+      .then((claims) => {
+        console.log('Login successful! Claims:', claims);
+        setMessage({
+          success: true,
+          content: 'Registration and login successful!',
         });
+        navigate('/');
       })
       .catch((error) => {
-        console.error('API Error:', error);
+        if (error.message.includes('Account already exists')) {
+          setMessage({
+            success: false,
+            content: 'Account already exists. Please choose a different username or email.',
+          });
+        } else {
+          setMessage({
+            success: false,
+            content: 'Unexpected error during registration. Please try again.',
+          });
+        }
       });
   };
 
@@ -52,6 +69,7 @@ const RegisterForm = () => {
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        message={message}
       />
     </div>
   );

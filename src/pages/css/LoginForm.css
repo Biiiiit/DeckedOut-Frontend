@@ -6,7 +6,7 @@
   }
   
   .login-form {
-    background-color: #f5f5f5;
+    background-color: #02eee2;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -39,8 +39,9 @@
   input[type="password"] {
     width: 92.5%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #7affeb;
     border-radius: 4px;
+    background-color: rgb(181, 252, 242);
   }
   
   button[type="submit"] {

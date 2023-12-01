@@ -1,0 +1,20 @@
+.top-navbar {
+    background-color: rgba(0, 0, 0, 0.729);
+    color: #04d9ff;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+  
+  .top-navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .top-navbar a {
+    text-decoration: none;
+    color:#04d9ff;
+  }
+  
