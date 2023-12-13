@@ -12,9 +12,24 @@ html, body {
   background-color: rgba(0, 0, 0, 0.566);
 }
 .container{
-  margin-top: 7%;
+  margin-top: 13%;
   height:100%;
   color: #04d9ff;
+}
+.personal{
+  color: #04d9ff;
+}
+.btn-primary{
+  margin-left: 3%;
+  margin-top: 8.5%;
+}
+.btn-primary{
+  margin-left: 3%;
+  margin-top: 8.5%;
+}
+.btn-secondary{
+  margin-left: 3%;
+  margin-top: 8.5%;
 }
 .account-settings .user-profile .user-avatar {
   margin: 0 0 1rem 0;
@@ -25,6 +40,7 @@ html, body {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
   border-radius: 100px;
+  margin-left: 30%;
 }
 .account-settings .user-profile h5.user-name {
   margin: 0 0 0.5rem 0;
@@ -33,7 +49,6 @@ html, body {
   margin: 0;
   font-size: 0.8rem;
   font-weight: 400;
-  color: #9fa8b9;
 }
 .account-settings .about {
   margin: 2rem 0 0 0;
@@ -41,10 +56,13 @@ html, body {
 }
 .account-settings .about h5 {
   margin: 0 0 15px 0;
-  color: #007ae1;
+  color: #04d9ff;
 }
 .account-settings .about p {
   font-size: 0.825rem;
+}
+.avatar{
+  cursor:pointer;
 }
 .form-control {
   border: 1px solid #cfd1d8;
@@ -52,8 +70,8 @@ html, body {
   -moz-border-radius: 2px;
   border-radius: 2px;
   font-size: .825rem;
-  background: #ffffff;
-  color: #2e323c;
+  background: #ffffff !important;
+  color: #2e323c !important;
 }
 
 .card {

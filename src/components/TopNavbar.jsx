@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import TokenManager from '../apis/TokenManager';
 import logo from '../assets/logo.png';
 
-const pages = ['Home'];
+const pages = ['Home', 'Create Game']; // Add 'Create Game' to the pages array
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -54,6 +54,14 @@ function ResponsiveAppBar() {
     }
   };
 
+  const handleNavigateToCreateGame = () => {
+    if (claims && claims.roles.includes('admin')) {
+      const createGamePageRoute = '/createGame';
+      navigate(createGamePageRoute);
+      handleCloseNavMenu();
+    }
+  };
+
   const handleLogout = () => {
     // Clear claims and perform any additional logout steps
     TokenManager.clear();
@@ -70,7 +78,7 @@ function ResponsiveAppBar() {
     <AppBar position="fixed" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.729)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Avatar
+          <Avatar
             src={logo}
             sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
           />
@@ -149,13 +157,23 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => handleNavigate('/')}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <React.Fragment key={page}>
+                {page === 'Create Game' && claims && claims.roles.includes('admin') ? (
+                  <Button
+                    onClick={handleNavigateToCreateGame}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handleNavigate('/')}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page}
+                  </Button>
+                )}
+              </React.Fragment>
             ))}
           </Box>
 

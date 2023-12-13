@@ -4,12 +4,16 @@ import UserAPI from '../apis/UserAPI';
 import '../pages/css/UserPage.css';
 import TokenManager from '../apis/TokenManager';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import userIcon from '../assets/usericon.png';
 
 const UserPage = () => {
   const { name } = useParams();
   const [user, setUser] = useState(null);
   const [claims, setClaims] = useState(null);
-  const [editedUser, setEditedUser] = useState({password: '' });
+  const [editedUser, setEditedUser] = useState({ password: '', avatar: new Uint8Array() });
+  const [avatarSrc, setAvatarSrc] = useState(userIcon);
+  const [avatarFile, setAvatarFile] = useState(null); // New state for the avatar file
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +38,25 @@ const UserPage = () => {
 
         const userData = await UserAPI.getUserByUsername(name);
         setUser(userData);
-        setEditedUser(userData);
+
+        // Set initial state for editedUser
+        setEditedUser({
+          id: userData.id || '',
+          username: userData.username || '',
+          email: userData.email || '',
+          password: '', // Set the password to an empty string
+          newPassword: '',
+          type: userData.type || '',
+          avatar: userData.avatar || '',
+        });
+
+        if (userData.avatar && typeof userData.avatar === 'string') {
+          handleFileChange({
+            target: {
+              files: [userData.avatar],
+            },
+          });
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
         setUser(null);
@@ -52,15 +74,96 @@ const UserPage = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      // Check if the input is a file path
+      if (typeof file === 'string') {
+        // If it's a file path, convert it to a File object
+        fetch(file)
+          .then((res) => res.blob())
+          .then((blob) => {
+            const convertedFile = new File([blob], 'avatar.jpg', { type: 'image/jpeg' });
+
+            // Set the avatarFile state
+            setAvatarFile(convertedFile);
+
+            // Read the file content for displaying
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setAvatarSrc(reader.result);
+            };
+            reader.readAsDataURL(convertedFile);
+
+            // Update the editedUser state
+            setEditedUser((prevUser) => ({
+              ...prevUser,
+              avatar: convertedFile,
+            }));
+          })
+          .catch((error) => {
+            console.error('Error converting file path to File:', error);
+          });
+      } else {
+        // If it's already a file, proceed as before
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setAvatarSrc(reader.result);
+        };
+        reader.readAsDataURL(file);
+
+        // Set the avatarFile state
+        setAvatarFile(file);
+
+        // Update the editedUser state
+        setEditedUser((prevUser) => ({
+          ...prevUser,
+          avatar: file,
+        }));
+      }
+    }
+  };
+
   const handleUpdateUser = async () => {
     try {
-      // Call the API to update the user with editedUser data
-      await UserAPI.updateUser(editedUser);
+      console.log('Updating user data:', editedUser);
 
-      // Optionally, you can refetch the updated user data
+      // Ensure that the user ID is included in the request payload
+      const updatedUserToSend = {
+        ...editedUser,
+        id: claims.Id,
+      };
+
+      delete updatedUserToSend.type;
+
+      // Replace empty/null values in editedUser with corresponding values from user
+      const finalUpdatedUser = Object.fromEntries(
+        Object.entries(updatedUserToSend).map(([key, value]) => [key, value || user[key]])
+      );
+
+      console.log('Final updated user data:', finalUpdatedUser);
+
+      // Call updateUser with avatarFile separated
+      await UserAPI.updateUser(finalUpdatedUser.id, finalUpdatedUser, avatarFile, TokenManager.getAccessToken());
+
       const updatedUserData = await UserAPI.getUserByUsername(name);
       setUser(updatedUserData);
-      setEditedUser(updatedUserData);
+
+      // Set initial state for editedUser after update
+      setEditedUser({
+        username: updatedUserData.username || '',
+        email: updatedUserData.email || '',
+        password: '',
+        newPassword: '',
+        type: editedUser.type || '',
+        avatar: updatedUserData.avatar || '',
+      });
+
+      // Clear the avatarFile state
+      setAvatarFile(null);
+
+      console.log('User data updated successfully.');
     } catch (error) {
       console.error('Error updating user data:', error);
     }
@@ -75,16 +178,28 @@ const UserPage = () => {
               <div className="account-settings">
                 <div className="user-profile">
                   <div className="user-avatar">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                      alt="Maxwell Admin"
-                    />
+                    <label htmlFor="fileInput" className="file-input-label">
+                      <img
+                        className="avatar"
+                        src={avatarSrc}
+                        alt="User Avatar"
+                      />
+                    </label>
+                    <form encType='multipart/form-data'>
+                      <input
+                        type="file"
+                        id="fileInput"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                      />
+                    </form>
                   </div>
                   <h5 className="user-name">{editedUser.username}</h5>
                   <h6 className="user-email">{editedUser.email}</h6>
                 </div>
                 <div className="about">
-                  <h5 className="user-name">About</h5>
+                  <h5>About</h5>
                   {editedUser.type === 'admin' ? (
                     <p>
                       Type of account: Developer. This account is for making games for
@@ -111,7 +226,7 @@ const UserPage = () => {
             <div className="card-body">
               <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <h6 className="mb-2 text-primary">Personal Details</h6>
+                  <h6 className="personal mb-2">Personal Details</h6>
                 </div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
@@ -131,7 +246,7 @@ const UserPage = () => {
                   <div className="form-group">
                     <label htmlFor="eMail">Email</label>
                     <input
-                      type="email"
+                      type="text"
                       className="form-control"
                       id="eMail"
                       placeholder="Enter email ID"
@@ -150,7 +265,7 @@ const UserPage = () => {
                       id="password"
                       placeholder="Enter old password"
                       name="password"
-                      value={editedUser.password ||''}
+                      value={editedUser.password || ''}
                       onChange={handleInputChange}
                     />
                   </div>

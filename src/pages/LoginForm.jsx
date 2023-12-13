@@ -52,6 +52,7 @@ const LoginForm = (props) => {
       >
         <h2>Login</h2>
         <LoginFormFields formData={formData} handleChange={(e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))} />
+        <Link to="/register">Don't have an account? Register here</Link>
         <button type="submit">Login</button>
         {loginStatus.success === false && loginStatus.message !== null && (
           <p className="error-message">{loginStatus.message}</p>
@@ -59,7 +60,6 @@ const LoginForm = (props) => {
         {loginStatus.success === true && loginStatus.message !== null && (
           <p className="success-message">{loginStatus.message}</p>
         )}
-        <Link to="/register">Don't have an account? Register here</Link>
       </form>
     </div>
   );

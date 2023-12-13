@@ -37,7 +37,7 @@ const RegisterFormContent = ({ formData, handleChange, handleSubmit, message }) 
           <label>User Type</label>
           <select
             name="userType"
-            value={formData.type}
+            value={formData.userType}
             onChange={handleChange}
           >
             <option value="normal">Normal</option>
