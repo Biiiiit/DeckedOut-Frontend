@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import UserAPI from '../apis/UserAPI';
 import '../pages/css/UserPage.css';
 import TokenManager from '../apis/TokenManager';
@@ -217,6 +217,13 @@ const UserPage = () => {
                     </p>
                   )}
                 </div>
+                {editedUser.type === 'admin' && (
+                  <div className="text-center mt-3">
+                    <Link className='btn btn-primary' to="/viewGames">
+                      View Games
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

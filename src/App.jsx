@@ -7,6 +7,7 @@ import TopNavbar from './components/TopNavbar';
 import TokenManager from './apis/TokenManager';
 import UserPage from './pages/UserPage';
 import CreateGamePage from './pages/CreateGamePage';
+import ViewGamesPage from './pages/ViewGamesPage';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<LoginForm setClaims={setClaims}/>}/>
         <Route path="/users/:name" element={<UserPage/>} />
         <Route path="/createGame" element={<CreateGamePage setClaims={setClaims}/>}/>
+        <Route path="/viewGames" element={<ViewGamesPage setClaims={setClaims}/>}/>
         </Routes>
       </Router>
     </div>
