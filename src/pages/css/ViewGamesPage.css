@@ -1,0 +1,50 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 92%;
+    margin: auto;
+    margin-top: 8% !important;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.566);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
+.form-heading {
+    text-align: center;
+}
+
+.games-heading {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.games-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.games-list li {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #04d9ff;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.74);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 218px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.games-list li:hover {
+    background-color: #e0e0e000;
+}

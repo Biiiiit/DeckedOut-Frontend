@@ -8,6 +8,7 @@ import TokenManager from './apis/TokenManager';
 import UserPage from './pages/UserPage';
 import CreateGamePage from './pages/CreateGamePage';
 import ViewGamesPage from './pages/ViewGamesPage';
+import GameInfoPage from './pages/GameInfoPage';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/users/:name" element={<UserPage/>} />
         <Route path="/createGame" element={<CreateGamePage setClaims={setClaims}/>}/>
         <Route path="/viewGames" element={<ViewGamesPage setClaims={setClaims}/>}/>
+        <Route path="/gameInfo/:id" element={<GameInfoPage />} />
         </Routes>
       </Router>
     </div>

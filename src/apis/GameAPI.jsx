@@ -30,6 +30,7 @@ const GameAPI = {
     })
       .then((response) => {
         console.log('API Response:', response.data);
+        return response; // Return the response
       })
       .catch((error) => {
         console.error('API Error:', error.response); // Log the error response for debugging

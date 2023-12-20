@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import TokenManager from '../apis/TokenManager';
 import logo from '../assets/logo.png';
 
-const pages = ['Home', 'Create Game']; // Add 'Create Game' to the pages array
+const pages = ['Home', 'Create Game'];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -136,7 +136,6 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -152,7 +151,12 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <Avatar
+              src={logo}
+              alt="Logo"
+              sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+            />
+            Decked Out
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
