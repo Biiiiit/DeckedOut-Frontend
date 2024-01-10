@@ -12,7 +12,7 @@ html, body {
   background-color: rgba(0, 0, 0, 0.566);
 }
 .container{
-  margin-top: 13%;
+  margin-top: 8% !important;
   height:100%;
   color: #04d9ff;
 }

@@ -1,0 +1,122 @@
+.gameform-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 92%;
+    margin: auto;
+    height: calc(85vh);
+    max-height: 80%;
+    margin-top: 5.5% !important;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.566);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gameform-banner {
+    background-position: center center;
+    background-size: cover;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    top: 0;
+    border-top-right-radius: 8px;
+    height: 200px;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+}
+
+.gameform-icon {
+    background-position: center center;
+    background-size: contain;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto;
+    transform: translate(0%, -50%);
+    border: 8px solid rgba(0, 0, 0, 0.716);
+    ;
+}
+
+.gameform-heading {
+    text-align: left;
+    font-size: 32px;
+    margin-left: 10px;
+    margin-top: -7.5%;
+}
+
+.label {
+    font-weight: bold;
+    color: #04d9ff;
+    margin-bottom: -5px;
+    margin-left: 10px;
+}
+
+.value {
+    color: #fff;
+    margin-left: 10px;
+}
+
+.loading {
+    color: #04d9ff;
+}
+
+.error {
+    color: #ff0000;
+}
+
+.openModalButton {
+    width: 30%;
+    margin-left: 69%;
+    margin-bottom: 1%;
+    transform: translate(0%, -350%);
+    background-color: #04d9ff;
+    transition: background-color 0.3s ease;
+}
+
+.openModalButton:hover {
+    background-color: #009ac8;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('/src/assets/vapowave.png');
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal.open {
+    display: block;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5% !important;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.566);
+    border: 1px solid #ccc;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 1%;
+}
+
+.left-half,
+.right-half {
+    width: 100%;
+}
+
+.blueText {
+    color: #04d9ff;
+}
+
+.select {
+    width: 92.5%;
+}

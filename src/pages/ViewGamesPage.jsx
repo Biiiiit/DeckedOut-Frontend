@@ -50,7 +50,6 @@ const ViewGamesPage = () => {
           {games.map((game) => (
             <li key={game.id} onClick={() => handleGameItemClick(game.id)}>
               <img
-                className="game-icon"
                 src={game.icon || "https://picsum.photos/200"}
                 alt={`${game.name} icon`}
               />
