@@ -5,6 +5,7 @@ import TokenManager from '../apis/TokenManager';
 import './css/GameInfoPage.css';
 import DefaultIcon from '../assets/galaxy.png';
 import GameCardsModal from '../components/GameCardsModal';
+import GameCharactersModal from '../components/GameCharacterModal';
 
 // Modal component for Game Areas
 const GameAreasModal = ({ isOpen, onClose }) => {
@@ -43,20 +44,6 @@ const GameLevelsModal = ({ isOpen, onClose }) => {
       <div className="modal-content">
         <h3>Game Levels Modal</h3>
         {/* Add your input fields and buttons for Game Levels */}
-        <button onClick={onClose}>Close</button>
-      </div>
-    </div>
-  );
-};
-
-// Modal component for Game Characters
-const GameCharactersModal = ({ isOpen, onClose }) => {
-  // Add your input fields and logic for Game Characters modal
-  return (
-    <div className={`modal ${isOpen ? 'open' : ''}`}>
-      <div className="modal-content">
-        <h3>Game Characters Modal</h3>
-        {/* Add your input fields and buttons for Game Characters */}
         <button onClick={onClose}>Close</button>
       </div>
     </div>

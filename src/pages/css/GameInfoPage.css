@@ -12,6 +12,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.input {
+    padding: 6px;
+}
+
 .gameform-banner {
     background-position: center center;
     background-size: cover;
@@ -83,6 +87,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-image: url('/src/assets/vapowave.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     padding: 20px;
     z-index: 1000;
 }
@@ -102,7 +108,7 @@
 }
 
 .columns {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 1%;
@@ -119,4 +125,100 @@
 
 .select {
     width: 92.5%;
+}
+
+.custom-button {
+    background-color: #04d9ff;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #0288d1;
+}
+
+.custom-button2 {
+    margin-top: 1%;
+    width: 48%;
+    margin: 1%;
+    background-color: #04d9ff;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button2:hover {
+    background-color: #0288d1;
+}
+
+
+.small-input {
+    width: 100% !important;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.column2 {
+    padding: 0 15px;
+}
+
+/* Set the width for the first two columns to 38% each */
+.column2:nth-child(1),
+.column2:nth-child(2) {
+    flex-basis: 36%;
+}
+
+/* Set the width for the last column to 24% */
+.column2:nth-child(3) {
+    flex-basis: 28%;
+}
+
+/* Add these styles to your CSS file */
+.popup {
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #04d9ff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #000;
+    /* Set text color to black */
+    z-index: 1;
+    /* Ensure the popup is above other elements */
+    display: none;
+    /* Hide the popup by default */
+}
+
+.popup p {
+    margin: 5px 0;
+}
+
+/* Adjust styles for better visibility and aesthetics */
+.preview-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.sprite-preview {
+    width: 50%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.preview-container:hover .sprite-preview {
+    transform: scale(1.1);
+}
+
+.preview-container:hover .popup {
+    display: block;
+    position: absolute;
+    top: 50%;
+    /* Adjust as needed */
+    left: 50%;
+    /* Adjust as needed */
+    transform: translate(-50%, -50%);
 }

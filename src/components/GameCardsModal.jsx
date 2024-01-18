@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import CardTemplate from "../assets/card template.png";
 import swordIcon from "../assets/sword_icon.png";
+import shieldIcon from "../assets/shield icon.png";
+import healingIcon from "../assets/healing icon.png";
+import CardAPI from "../apis/CardAPI";
+import TokenManager from '../apis/TokenManager';
 
 const GameCardsModal = ({ isOpen, onClose }) => {
   const [cardData, setCardData] = useState({
@@ -75,7 +79,7 @@ const GameCardsModal = ({ isOpen, onClose }) => {
       const centerX = canvas.width / 2;
       const textWidth = ctx.measureText(cardData.name).width;
       const xPos = centerX - textWidth / 2;
-    
+
       ctx.fillText(`${cardData.name}`, xPos, 50);
     }
 
@@ -87,11 +91,25 @@ const GameCardsModal = ({ isOpen, onClose }) => {
       const swordHeight = 180;
       const swordX = (canvas.width - swordWidth) / 2;
       const swordY = (canvas.height - swordHeight) / 2;
-      ctx.drawImage(swordImg, swordX-5, swordY, swordWidth, swordHeight);
-    } else {
-      if (cardData.type) {
-        ctx.fillText(`Type: ${cardData.type}`, 20, 100);
-      }
+      ctx.drawImage(swordImg, swordX - 5, swordY, swordWidth, swordHeight);
+    }
+    else if (cardData.type === 'Shield') {
+      const shieldImg = new Image();
+      shieldImg.src = shieldIcon;
+      const shieldWidth = 180;
+      const shieldHeight = 180;
+      const shieldX = (canvas.width - shieldWidth) / 2;
+      const shieldY = (canvas.height - shieldHeight) / 2;
+      ctx.drawImage(shieldImg, shieldX, shieldY + 5, shieldWidth, shieldHeight);
+    }
+    else {
+      const healingImg = new Image();
+      healingImg.src = healingIcon;
+      const healingWidth = 180;
+      const healingHeight = 180;
+      const healX = (canvas.width - healingWidth) / 2;
+      const healY = (canvas.height - healingHeight) / 2;
+      ctx.drawImage(healingImg, healX - 1.5, healY, healingWidth, healingHeight);
     }
 
     if (cardData.damage > 0) {
@@ -112,12 +130,48 @@ const GameCardsModal = ({ isOpen, onClose }) => {
     }
   }, [cardData]);
 
+  const saveCard = async (e) => {
+    e.preventDefault();
+    try {
+      const accessToken = TokenManager.getAccessToken();
+      console.log(accessToken);
+      if (!accessToken) {
+        console.error('Access token is not defined');
+        return;
+      }
+
+      // Create a new object with null values for all fields except name and description
+      const CardInfo = {
+        name: cardData.name,
+        typeOfCard: cardData.type,
+        damage: cardData.damage,
+        shielding: cardData.shielding,
+        healing: cardData.healing
+      };
+      console.log(CardInfo);
+
+      await CardAPI.createCard(CardInfo, accessToken);
+      console.log('Card created successfully!');
+
+      // Reset the form data after successful submission
+      setCardData({
+        name: '',
+        typeOfCard: 'Atk',
+        damage: 0,
+        healing: 0,
+        shielding: 0,
+      });
+    } catch (error) {
+      console.error('Error creating game:', error.message);
+    }
+  };
+
   return (
     <div className={`modal ${isOpen ? 'open' : ''}`}>
       <div className="modal-content">
         <div className="columns">
           <div className="left-half">
-            <h3>Game Cards Modal</h3>
+            <h3>Create Card</h3>
             <label htmlFor="cardName">Card Name:</label>
             <input
               type="text"
@@ -178,7 +232,8 @@ const GameCardsModal = ({ isOpen, onClose }) => {
             {tooltip && <div className="tooltip">{tooltip}</div>}
           </div>
         </div>
-        <button onClick={onClose}>Close</button>
+        <button className="custom-button" onClick={saveCard}>Save Card</button>
+        <button className="custom-button" onClick={onClose}>Close</button>
       </div>
     </div>
   );
